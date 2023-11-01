@@ -6,12 +6,45 @@
     </head>
 
     <body>
-        <h1>FLIXLINK Documentation</h1>
-        <p>GOAL: To build the server-side component of a web application called FlixLink.<br>
-            The app is designed to provide users with information about different movies,
-            directors, and genres. The server-side of the FlixLink application will ensure they have access
-            to this information, that their requests can be processed, and that all necessary data can be
-            stored.
-            Users will be able to create an account with which to enter, maintain, and update their personal information, as well as create a customized list of their favorite movies.</p>
+        
+        <div style="text-align: center;">
+            <h1>FLIXLINK Documentation</h1>
+            <h2>WHAT IS FLEXLINK?</h2>
+            <p>FlexLink provides users with information about different
+                movies, directors, and genres. The server-side of the FlixLink application will ensure they have access to this information, that their requests can be processed, and that all necessary data can be stored.<br><br>
+
+                Users will be able to create an account with which to enter, maintain, and update their personal information, as well as create a customized list of their favorite movies.</p>
+        
+            <br>
+        </div>
+
+        <div style="text-align: center;">
+            <h2>FLEXLINK API REFERENCE</h2>
+                <br>
+            <h3>RETURNING MOVIE DATA</h3>
+                <span style="font-weight: bold;">All Movies:</span> GET   /movies
+                <br>
+                <span style="font-weight: bold;">Movies by Title:</span> GET   /movies/:Title
+                <br>
+                <span style="font-weight: bold;">Genre Info by Genre Name:</span> GET   /movies/genre/:genreName:Title
+                <br>
+                <span style="font-weight: bold;">Info About a Director by Name:</span> GET   /movies/directors/:directorName
+                <br><br>
+            <h3>USER ACCOUNTS</h3>
+                <span style="font-weight: bold;">Adding a New User:</span> POST   /users
+                <br>
+                <span style="font-weight: bold;">Update User Info:</span> PUT   /users/:userName
+                <br>
+                <span style="font-weight: bold;">Delete User Account:</span> DELETE   /users/:userName
+                <br><br>
+            <h3>CUSTOMIZING USER FAVORITES</h3>
+                <span style="font-weight: bold;">Adding a New Movie to Favorites:</span> POST   /users/:userName/movies/:movieID
+                <br>
+                <span style="font-weight: bold;">Removing a Movie from Favorites:</span> DELETE   /users/:userName/movies/:movieID
+        
+        </div>
+
     </body>
+
+
 </html>

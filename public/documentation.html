@@ -26,21 +26,21 @@
                 <br>
                 <span style="font-weight: bold;">Movies by Title:</span> GET   /movies/:Title
                 <br>
-                <span style="font-weight: bold;">Genre Info by Genre Name:</span> GET   /movies/genre/:genreName:Title
+                <span style="font-weight: bold;">Genre Info by Genre Name:</span> GET   /movies/genre/:genreName
                 <br>
                 <span style="font-weight: bold;">Info About a Director by Name:</span> GET   /movies/directors/:directorName
                 <br><br>
             <h3>USER ACCOUNTS</h3>
                 <span style="font-weight: bold;">Adding a New User:</span> POST   /users
                 <br>
-                <span style="font-weight: bold;">Update User Info:</span> PUT   /users/:userName
+                <span style="font-weight: bold;">Update User Info:</span> PUT   /users/:id
                 <br>
-                <span style="font-weight: bold;">Delete User Account:</span> DELETE   /users/:userName
+                <span style="font-weight: bold;">Delete User Account:</span> DELETE   /users/:id
                 <br><br>
             <h3>CUSTOMIZING USER FAVORITES</h3>
-                <span style="font-weight: bold;">Adding a New Movie to Favorites:</span> POST   /users/:userName/movies/:movieID
+                <span style="font-weight: bold;">Adding a New Movie to Favorites:</span> POST   /users/:id/:movieID
                 <br>
-                <span style="font-weight: bold;">Removing a Movie from Favorites:</span> DELETE   /users/:userName/movies/:movieID
+                <span style="font-weight: bold;">Removing a Movie from Favorites:</span> DELETE   /users/:id/:movieID
         
         </div>
 

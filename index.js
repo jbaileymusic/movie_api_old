@@ -101,7 +101,7 @@ app.get('/movies', (req, res) => {
     res.status(200).json(movies);
 });
 
-// GET Movie Data
+// GET Movie Data on a Specific Title
 app.get('/movies/:title', (req, res) => {
     const { title } = req.params;
     const movie = movies.find( movie => movie.Title === title );

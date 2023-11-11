@@ -1,0 +1,6 @@
+{"_id":{"$oid":"654b7d33db5fbb6482464ede"},"Name":"Horror","Description":"Evokes fear, terror, and suspense through supernatural or psychological elements."}
+{"_id":{"$oid":"654b7e15db5fbb6482464edf"},"Name":"Adventure","Description":"Filled with thrilling adventures, often set in exotic locations."}
+{"_id":{"$oid":"654b7ea3db5fbb6482464ee0"},"Name":"Sci-Fi","Description":"Explores futuristic and speculative concepts, often involving advanced technology or alien worlds."}
+{"_id":{"$oid":"654b7fccdb5fbb6482464ee1"},"Name":"Drama","Description":"Focuses on character development, emotions, and storytelling."}
+{"_id":{"$oid":"654b7fccdb5fbb6482464ee2"},"Name":"Family","Description":"Suitable for viewers of all ages, often focusing on themes of friendship and adventure."}
+{"_id":{"$oid":"654b7fccdb5fbb6482464ee3"},"Name":"Action","Description":"Action-packed, filled with thrilling sequences and intense battles."}

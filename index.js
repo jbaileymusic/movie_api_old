@@ -13,6 +13,29 @@ const express = require('express');
     uuid = require('uuid');
     morgan = require('morgan');
 
+const { check, validationResult } = require('express-validator');
+
+const cors = require('cors');
+app.use(cors());
+
+
+
+//SAMPLE TEMPLATE FOR ALLOWING RESTRICTED ACCESS TO CERTAIN DOMAINS - LATER USE IF NEEDED
+/* let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if(!origin) return callback(null, true);
+        if(allowedOrigins.indexOf(origin) === -1){
+            let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
+            return callback(new Error(message ), false);
+        }
+        return callback(null, true);
+    }
+})); */
+
+
+
 let auth = require('./auth')(app);
 
 const passport = require('passport');
@@ -136,7 +159,25 @@ app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), as
 
 //CREATE (POST) FUNCTIONS
 // Add New User
-app.post('/users', async (req, res) => {
+app.post('/users', 
+    //Validation logic
+    [  
+        check('Username', 'Username is required').isLength({min: 5}),
+        check('Username', 'Username contains non-alphanumeric characters and is not allowed.').isAlphanumeric(),
+        check('Password', 'Password is required.').not().isEmpty(),
+        check('Email', 'Please use a valid email address.').isEmail()
+    ], async (req, res) => {
+
+    //Check validation object for errors
+        let errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }  //End of validation error check
+    
+    // Hash the new user password
+    let hashedPassword = Users.hashPassword(req.body.Password);
+
     await Users.findOne({ Username: req.body.Username})
         .then((user) => {
             if (user) {
@@ -145,15 +186,15 @@ app.post('/users', async (req, res) => {
               Users
                 .create ({
                     Username: req.body.Username,
-                    Password: req.body.Password,
+                    Password: hashedPassword,
                     Email: req.body.Email,
                     Birthday: req.body.Birthday
                 })
                 .then ((user) => {res.status(201).json(user) })
-              .catch ((error) => {
-                console.error(error);
-                res.status(500).send('Error: ' + error);
-              })
+                .catch ((error) => {
+                    console.error(error);
+                    res.status(500).send('Error: ' + error);
+                })                                
             }
         })
         .catch((error) => {
@@ -185,13 +226,30 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
 
 
 //UPDATE (PUT) FUNCTIONS
-//Update User Info (Username)
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
+//Update User Info
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
+    //Validation logic
+    [  
+        check('Username', 'Username is required').isLength({min: 5}),
+        check('Username', 'Username contains non-alphanumeric characters and is not allowed.').isAlphanumeric(),
+        check('Password', 'Password is required.').not().isEmpty(),
+        check('Email', 'Please use a valid email address.').isEmail()
+    ], async (req, res) => {
     
     //Condition to check for the same user
     if(req.user.Username !== req.params.Username){
         return res.status(400).send('Permission denied');
     } //End of condition
+
+    //Check validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }  //End of validation error check
+    
+    //Hash the updated user password
+    let hashedPassword = Users.hashPassword(req.body.Password);
 
     await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
         {

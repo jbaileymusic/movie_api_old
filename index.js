@@ -303,7 +303,11 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
 });
 
 
-app.listen(8080, () => {
+/* app.listen(8080, () => {
     console.log('FlixLink is listening on Port 8080.');
-});
+}); */
 
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+    console.log('Flexlink is listening on Port ' + port);
+});

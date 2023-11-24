@@ -5,7 +5,11 @@ const mongoose = require('mongoose');
     Genres = Models.Genre;
     Directors = Models.Director
 
-mongoose.connect('mongodb://127.0.0.1:27017/flexlinkDB', { useNewUrlParser: true, useUnifiedTopology: true });
+    //CONNECTION TO LOCAL DATABASE
+/* mongoose.connect('mongodb://127.0.0.1:27017/flexlinkDB', { useNewUrlParser: true, useUnifiedTopology: true }); */
+
+    //CONNECTION TO ONLINE DATABASE
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const express = require('express');
     app = express();

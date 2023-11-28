@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
     Genres = Models.Genre;
     Directors = Models.Director
 
+const path = require('path')
+
     //CONNECTION TO LOCAL DATABASE
 /* mongoose.connect('mongodb://127.0.0.1:27017/flexlinkDB', { useNewUrlParser: true, useUnifiedTopology: true }); */
 
@@ -48,6 +50,8 @@ require('./passport');
 app.use(bodyParser.json());
 app.use(morgan('common'));
 
+//Load Documentation page
+app.use(express.static("public"));
 
 
 //READ (GET) FUNCTIONS
@@ -63,6 +67,8 @@ app.use(morgan('common'));
             res.status(500).send('Error: ' + err);
         });
 }); */
+
+
 
 //GET USER BY USERNAME
 app.get('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
@@ -310,6 +316,17 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
 /* app.listen(8080, () => {
     console.log('FlixLink is listening on Port 8080.');
 }); */
+
+
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, '/index.html'));
+  });
+
+//Error handling
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send("Boooo, something broke!");
+  });
 
 const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
